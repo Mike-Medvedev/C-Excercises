@@ -56,3 +56,16 @@ void print_smallest_word(char words[MAX_WORDS][BUFFER_SIZE]){
 void print_largest_word(char words[MAX_WORDS][BUFFER_SIZE]){
     printf("1");
 }
+
+
+#include <stdio.h>
+/**
+ * Prints command line arguments in reverse
+ */
+int main(int argc, char *argv[]){
+    printf("Printing arg count %d \r\n", argc);
+    printf("Reversed command line arguments: ");
+    for(int i = argc - 1; i > 0; i--){
+        printf("%s ", argv[i]);
+    }
+}

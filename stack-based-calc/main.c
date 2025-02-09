@@ -13,8 +13,8 @@ char ch;
  * 
  */
 int main(){
-   printf("\r\nWelcome to The Ultimate Calculator! \n \nPlease enter a number followed by an operation "
-    "and press q to exit!\n");
+   printf("\r\nWelcome to the Calculator! \n \nPlease enter a number followed by an operation "
+    "or press q to exit!\n");
 
    while((ch = getchar()) != 'q'){
     if(ch == '\n') continue;

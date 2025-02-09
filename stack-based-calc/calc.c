@@ -1,46 +1,50 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include "calc.h"
 #include "stack.h"
 
-
-#define IS_DIGIT(ch) ((ch) >= '1' && (ch) <= '9')
+int operator_count = 0;
+int operand_count = 0;
 
 void process_token(char ch){
-    if(illegal_entry(ch)){
-        printf("Invalid entry! Please enter two numbers and an operation");
+    if(!legal_entry(ch)){
+        printf("Invalid entry! Please enter two numbers and an operation\n");
+        exit(1);
         return;
     }
 
-    if(IS_DIGIT(ch)){
-        push(ch);
+    if(isdigit(ch)){
+        push(ch - '0');
         return;
     }
-    switch(tolower(ch)){
-        case '+':
-           add();
-            break;
-        case '-':
-        subtract();
-            break;
-        case '*': case 'x':
-        multiply();
-            break;
-        case '/':
-        divide();
-            break;
-        default:
-            printf("Please enter a valid number or operation");
-            break;
-    }
+    perform_operation(tolower(ch));
 }
 
-bool illegal_entry(char ch){
+bool legal_entry(char ch){
   return true;
 }
+void perform_operation(char op) {
+    int operand_2 = pop();
+    int operand_1 = pop();
+    int result;
 
-void add(){}
-void subtract(){}
-void multiply(){}
-void divide(){}
+    switch (op) {
+        case '+': result = operand_1 + operand_2; break;
+        case '-': result = operand_1 - operand_2; break;
+        case '*': case 'x': result = operand_1 * operand_2; break;
+        case '/': 
+            if (operand_2 == 0) {
+                printf("Error: Division by zero\n");
+                exit(1);
+            }
+            result = operand_1 / operand_2;
+            break;
+        default:
+            printf("Error: Invalid operation\n");
+            exit(1);
+    }
+    printf("Result: %d\n", result);
+    push(result);
+}

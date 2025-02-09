@@ -1,5 +1,12 @@
+#ifndef STACK_H
+#define STACK_H
+
 #include <stdbool.h>
-int pop();
-void push(char token);
-bool is_full();
-bool is_empty();
+void push(int operand);
+int pop(void);
+bool is_full(void);
+bool is_empty(void);
+void clear_stack(void);
+int peek(void);
+
+#endif 

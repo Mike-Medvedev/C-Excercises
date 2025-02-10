@@ -62,7 +62,6 @@ void add_contact(){
     scanf("%s", contact.phone_number);
 
     contacts[size++] = contact;
-    //now add contact to the array
 }
 void list_contacts(void){
     for(int i = 0; i < size; i++){

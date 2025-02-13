@@ -8,10 +8,9 @@ typedef int Item;
 typedef struct queue_type *Queue;
 
 Queue create();
+void destroy(Queue *q);
 void enqueue(Queue q, Item t);
 Item dequeue(Queue q);
-void peek(Queue q);
-Item peek_last(Queue q);          
-bool is_empty(Queue q);         
+void peek(Queue q);    
 
 #endif

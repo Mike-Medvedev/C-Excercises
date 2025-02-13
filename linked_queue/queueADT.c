@@ -12,6 +12,7 @@ struct node{
 
 struct queue_type{
     struct node *head;
+    struct node *tail;
     int size;
 };
 
@@ -22,23 +23,30 @@ Queue create(){
         exit(1);
     }
     q->head = NULL;
+    q->tail = NULL;
     q->size = 0;
     return q;
 }
 
-Node enqueue(Queue q, Item t){
+void enqueue(Queue q, Item t){
     Node new_node = malloc(sizeof(struct node));
     if(!new_node){
         printf("Creating New node failed!");
         exit(1);
     }
-    Node old_head = q->head;
-    q->head = new_node;
     new_node->data = t;
-    new_node->next = old_head;
-    q->size++;
+    new_node->next = NULL;
 
-    return new_node;
+    if(q->size == 0) { // when queue is empty 
+        q->head = new_node;
+        q->tail = new_node;
+    }
+    else {
+        q->tail->next = new_node;
+        q->tail = new_node; 
+    }
+
+    q->size++;
 }
 
 Item dequeue(Queue q){
@@ -51,18 +59,33 @@ Item dequeue(Queue q){
 
     Node old_head = q->head;
     q->head = q->head->next;
+
+    if (q->head == NULL) {
+        q->tail = NULL;
+    }
+
     free(old_head);
+
+
+
     q->size--;
     return dequeued_item;
 }
 
-void destroy(Queue *q){
-    if (!*q) {
-        return; 
+void destroy(Queue *q) {
+    if (!q || !*q) return;
+
+    Node current = (*q)->head;
+    while (current != NULL) {
+        Node temp = current;
+        current = current->next;
+        free(temp); 
     }
-   free(*q);
-   *q = NULL;
+
+    free(*q);
+    *q = NULL;
 }
+
 
 void peek(Queue q){
     printf("Printing first item in queue %d\n", q->head->data);

@@ -10,7 +10,7 @@ typedef struct queue_type *Queue;
 
 Queue create();
 void destroy(Queue *q);
-Node enqueue(Queue q, Item t);
+void enqueue(Queue q, Item t);
 Item dequeue(Queue q);
 void peek(Queue q);    
 
